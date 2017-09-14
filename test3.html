@@ -44,7 +44,7 @@
  <!-- This file has been changed online -->
  
  <!-- BAGO na to -->
- 
+
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -89,12 +89,13 @@
 		<td>Percentage</td>
 		<td>Stop/Loss</td>
 		<td>Target</td>
+		<td>Remarks</td>
 		<td>Action</td>
 	</tr>
 	</thead>
 	<tbody>
 
-	
+
 	<tr ng-repeat="x in stocks">
 
 	
@@ -110,10 +111,11 @@
 		 }}</td>
 		<td style="color:{{x.fcolor}};">{{ 
 			(( x.gainloss / x.marketvalue ) * 100.00 ) |number:2 }}
-		</td>
-		<td> {{ (x.totalcost - ((stopLossPct/100) * x.totalcost)) |number:2 }} </td>
+		</td> 
+		<td> {{ temp  }} </td>
 		<td>{{ (x.totalcost + ((targetPct/100) * x.totalcost)) |number:2 }}</td>
-		<td>{{ marketVal  }}</td>
+		<td> </td>
+		<td> <span class="glyphicon glyphicon-minus-sign" ng-click="DeleteStock(x.symbol)"></span> </td>
 	</tr>
    
 	</tbody>
@@ -214,7 +216,7 @@
 	
 	app.controller('customersCtrl', function($scope, $http, $timeout) {
   
- 
+ $scope.temp;
 	$scope.fetchURL = "fetchdata.php";
 	fetchInterval = 60 * 1000;
 	$scope.stopLossPct = 3;
@@ -246,15 +248,29 @@
 	   $scope.getData();
 	   
 	 $scope.clickAdd = function() {
-        alert($scope.inputSymbol)
+      
 		var Indata = {"symbol":$scope.inputSymbol,"shares":$scope.inputShares,"aveprice":$scope.inputAve };
 			$http.post("savestock.php", Indata).then(function (data, status, headers, config) { 
-				 alert(data);
+				 alert("Stock Saved");
+				 location.reload();
 			},function (data, status, headers, config) { 
 				 
 			});
 				
     };
+	   
+	   
+	    $scope.DeleteStock = function(sym) {
+    
+	 var Indata = {"symbol":sym};
+			$http.post("deletestock.php", Indata).then(function (data, status, headers, config) { 
+				 location.reload();
+			},function (data, status, headers, config) { 
+				 
+			});
+				
+    };
+	   
 	   
 	   
 	});
