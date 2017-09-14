@@ -2,9 +2,11 @@
 include("conf.php");
  
  
- echo $_REQUEST["symbolx"];
+$symbol = $_POST["symbol"];
+$shares = $_POST["shares"];
+$aveprice = $_POST["aveprice"];
  
- exit;
+ 
  
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -13,10 +15,12 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-$sql = "SELECT * from t_stocks";
-$result = mysqli_query($conn, $sql);
- 
 
+
+$sql = "INSERT INTO t_stocks(`symbol`,`shares`,`aveprice`) VALUES('$symbol',$shares,$aveprice)";
+$result = mysqli_query($conn, $sql);
+  
+echo "OK";
 mysqli_close($conn);
  
 				
