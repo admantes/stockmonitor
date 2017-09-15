@@ -5,7 +5,7 @@ DEFINE("STOP_LOSS_PERCENTAGE", 3.00);
 DEFINE("SELL_TARGET_PERCENTAGE", 1.7); 
 
 $stockURL = "http://phisix-api4.appspot.com/stocks/";
-$stockURL = "https://phutie.com/admantes/stock/sampledata/";
+//$stockURL = "https://phutie.com/admantes/stock/sampledata/";
 $sharesArr = array();
 $avepriceArr = array();
 $stockArr = array();

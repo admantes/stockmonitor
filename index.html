@@ -101,7 +101,7 @@
 	
 		<td>{{ $index + 1 }}</td>
 		<td>{{ x.symbol }}</td>
-		<td>{{ (x.price * 1.00) |number:2 }} </td>
+		<td><b>{{ (x.price * 1.00) |number:2 }} </b></td>
 		<td>{{ x.aveprice }} </td>
 		<td>{{ x.shares |number }}</td>  		
 		<td>{{ x.marketvalue |number:2  }} </td> 
@@ -218,9 +218,9 @@
   
  $scope.temp;
 	$scope.fetchURL = "fetchdata.php";
-	fetchInterval = 60 * 1000;
-	$scope.stopLossPct = 3;
-	$scope.targetPct = 2.5;
+	fetchInterval = 20 * 1000;
+	//$scope.stopLossPct = 3;
+	//$scope.targetPct = 2.5;
 	
 	$scope.marketVal = 0;
 	  // Function to get the data
