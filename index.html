@@ -112,9 +112,9 @@
 		<td style="color:{{x.fcolor}};">{{ 
 			(( x.gainloss / x.marketvalue ) * 100.00 ) |number:2 }}
 		</td>  
-		<td> {{ (x.totalcost - ((stopLossPct/100) * x.totalcost))  |number:2 }} </td>  
-		<td>{{ (x.totalcost + ((targetPct/100) * x.totalcost)) |number:2 }}</td>
-		<td ng-bind="myaction"> </td>
+		<td> {{ x.stoploss  |number:2 }} </td>  
+		<td>{{ x.target |number:2 }}</td>
+		<td  style="color:{{x.fcolor}};"> {{x.action}}</td>
 		<td> <span class="glyphicon glyphicon-minus-sign" ng-click="DeleteStock(x.symbol)"></span> </td>
 	</tr>
    
@@ -258,12 +258,9 @@
 			});
 				
     };
-	   
-	   $scope.getAction = function(y){
-	   alert(y);
-	   
-	   }
-	    $scope.DeleteStock = function(sym) {
+	 
+	
+	$scope.DeleteStock = function(sym) {
     
 	 var Indata = {"symbol":sym};
 			$http.post("deletestock.php", Indata).then(function (data, status, headers, config) { 

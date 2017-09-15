@@ -1,8 +1,11 @@
 <?php
 include("conf.php");
- 
+// ini_set("error_reporting","E_ERROR");//Disable error reporting in warning
+DEFINE("STOP_LOSS_PERCENTAGE", 3.00); 
+DEFINE("SELL_TARGET_PERCENTAGE", 1.7); 
+
 $stockURL = "http://phisix-api4.appspot.com/stocks/";
-//$stockURL = "https://phutie.com/admantes/stock/sampledata/";
+$stockURL = "https://phutie.com/admantes/stock/sampledata/";
 $sharesArr = array();
 $avepriceArr = array();
 $stockArr = array();
@@ -11,7 +14,7 @@ $stopLossArr = array();
 $targetArr = array();
 $resultArr = array("stock"=>array());
 $multiArr = array();
-$keyArr = array("symbol","shares","aveprice","stop","target","price","percent_change","marketvalue","totalcost","gainloss","fcolor");
+$keyArr = array("symbol","shares","aveprice","price","percent_change","marketvalue","totalcost","gainloss","fcolor","stoploss","target","action");
  
 
 // Create connection
@@ -74,8 +77,8 @@ foreach ($stockArr as $x) {
 	array_push($jsonArr[$curIndex],$shares);
 	array_push($jsonArr[$curIndex],$aveprice);
 
-	array_push($jsonArr[$curIndex],""); //Stop Loss(calculated in client)
-	array_push($jsonArr[$curIndex],""); //Target (calculated in client)
+	//array_push($jsonArr[$curIndex],""); //Stop Loss(calculated in client)
+	//array_push($jsonArr[$curIndex],""); //Target (calculated in client)
 	
 	array_push($jsonArr[$curIndex],$currentPrice);
 	array_push($jsonArr[$curIndex],$obj->{'stock'}[0]->{'percent_change'});
@@ -94,12 +97,32 @@ foreach ($stockArr as $x) {
 	$stopLoss = $stopLossArr[$curIndex];
 	//$target = $targetArr[$curIndex];
 	
+	  
+	$stopLoss = $totalCost - ((STOP_LOSS_PERCENTAGE/100.00) * $totalCost);
+	$sellTarget =  $totalCost + ((SELL_TARGET_PERCENTAGE/100) * $totalCost);
+	
+	$action = "HOLD";
+	
+	if($marketValue > $sellTarget){
+		$action = "SELL";	
+	}else{
+		if($marketValue < $stopLoss){
+			$action = "SELL";
+		}
+		
+	}
+	
 	
 	array_push($jsonArr[$curIndex],$marketValue); //Adding Market Value
 	array_push($jsonArr[$curIndex],$totalCost); //Adding Total Cost
 	array_push($jsonArr[$curIndex],$gainLoss); //Adding Total Cost
 	array_push($jsonArr[$curIndex],$curStyle);
 	
+	array_push($jsonArr[$curIndex],$stopLoss);
+	array_push($jsonArr[$curIndex],$sellTarget);
+	array_push($jsonArr[$curIndex],$action);
+	
+	//Combine Keys and Array Values to form JSON output
 	$keyValArr = array_combine($keyArr, $jsonArr[$curIndex]);	
 	 
 	array_push($multiArr,$keyValArr);
