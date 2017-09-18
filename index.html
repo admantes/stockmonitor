@@ -226,12 +226,10 @@
 	  // Function to get the data
 	  $scope.getData = function(){
 		$http.get($scope.fetchURL)
-		   .then(function (response) {$scope.stocks = response.data.stock;
-		   
-		   //Data Computations
-		  $scope.Math = window.Math;
-
-		   $scope.gainLoss = 3;
+		   .then(function (response) {
+		   if(response.data != "0"){
+			$scope.stocks = response.data.stock;
+			}
 		});
 	  };
 
@@ -251,7 +249,7 @@
       
 		var Indata = {"symbol":$scope.inputSymbol,"shares":$scope.inputShares,"aveprice":$scope.inputAve };
 			$http.post("savestock.php", Indata).then(function (data, status, headers, config) { 
-				 alert("Stock Saved");
+				// alert("Stock Saved");
 				 location.reload();
 			},function (data, status, headers, config) { 
 				 
@@ -262,7 +260,7 @@
 	
 	$scope.DeleteStock = function(sym) {
     
-	 var Indata = {"symbol":sym};
+			var Indata = {"symbol":sym};
 			$http.post("deletestock.php", Indata).then(function (data, status, headers, config) { 
 				 location.reload();
 			},function (data, status, headers, config) { 

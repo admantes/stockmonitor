@@ -66,6 +66,10 @@ foreach ($stockArr as $x) {
 	
 	$obj = json_decode($result, false);
 	
+	if(substr($result,0,1) != "{"){
+		echo 0;
+		exit;
+	}
 	$currentPrice = $obj->{'stock'}[0]->{'price'}->{'amount'};
 	$shares = $sharesArr[$curIndex];
 	$aveprice = $avepriceArr[$curIndex];
@@ -84,12 +88,15 @@ foreach ($stockArr as $x) {
 	array_push($jsonArr[$curIndex],$obj->{'stock'}[0]->{'percent_change'});
  
 	//Compute Other Values
-	$marketValue = $currentPrice * $shares ; //Current Price * Shares
+	$marketValue = ($currentPrice * $shares);
+	$deductions = ( $marketValue * 0.0025 ) + ($marketValue*0.0001) + ($marketValue*0.005) + ($marketValue * 0.0025 * 0.12);
+	
+	
+	$marketValue = $marketValue - $deductions ; //Current Price * Shares
 	
 	//(((x.price*x.shares*0.0025) +  (x.price*x.shares*0.0001) + (x.price*x.shares*.005) + (x.price*x.shares*.0025*0.12)))
-	$deductions = ( $marketValue * 0.0025 ) + ($marketValue*0.0001) + ($marketValue*0.005) + ($marketValue * 0.0025 * 0.12);
 		
-	$totalCost = ($shares*$aveprice) + $deductions;
+	$totalCost = ($shares*$aveprice);// + $deductions;
 	$gainLoss = $marketValue - $totalCost;
 	
 	$curStyle = $gainLoss > 0 ? "green" : "red";
