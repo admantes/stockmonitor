@@ -22,14 +22,10 @@
  
   $("#btn").click(function(){
 	//  $("#stockbox").html("loading data...");
-   // $.ajax({url: "fetchdata.php", success: function(result){
-     //   $("#stockbox").html(result);
-    //
-	
-	//});
-	
-	
-	
+	// $.ajax({url: "fetchdata.php", success: function(result){
+    //   $("#stockbox").html(result);
+    // 
+	//}); 
 });
   
   
@@ -124,40 +120,40 @@
 
 
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+	<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Stock</h4>
-      </div>
-      <div class="modal-body">
-		<form class="form-horizontal">
-		   <div class="form-group">
-			  <label for="sym">Symbol:</label>
-			  <input type="text" class="form-control" id="inpSym" ng-model="inputSymbol">
-			</div>
-			<div class="form-group">
-			  <label for="pwd">Shares:</label>
-			  <input type="text" class="form-control" id="inpShares" ng-model="inputShares">
-			</div>
-		   <div class="form-group">
-			  <label for="pwd">Average Cost:</label>
-			  <input type="text" class="form-control" id="inpAve" ng-model="inputAve">
-			</div>
-		    <button type="submit" class="btn btn-default" ng-click="clickAdd()">Submit</button>
-		</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Add Stock</h4>
+		  </div>
+		  <div class="modal-body">
+			<form class="form-horizontal">
+			   <div class="form-group">
+				  <label for="sym">Symbol:</label>
+				  <input type="text" class="form-control" id="inpSym" ng-model="inputSymbol">
+				</div>
+				<div class="form-group">
+				  <label for="pwd">Shares:</label>
+				  <input type="text" class="form-control" id="inpShares" ng-model="inputShares">
+				</div>
+			   <div class="form-group">
+				  <label for="pwd">Average Cost:</label>
+				  <input type="text" class="form-control" id="inpAve" ng-model="inputAve">
+				</div>
+				<button type="submit" class="btn btn-default" ng-click="clickAdd()">Submit</button>
+			</form>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  </div>
+		</div>
 
-  </div>
-</div>
+	  </div>
+	</div>
 
 
 </div>
