@@ -15,7 +15,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-
+$symbol = trim($symbol);
 
 $sql = "INSERT INTO t_stocks(`symbol`,`shares`,`aveprice`) VALUES('$symbol',$shares,$aveprice)";
 $result = mysqli_query($conn, $sql);
