@@ -67,8 +67,8 @@ foreach ($stockArr as $x) {
 	$obj = json_decode($result, false);
 	
 	if(substr($result,0,1) != "{"){
-		echo 0;
-		exit;
+		//echo 0;
+		continue;
 	}
 	$currentPrice = $obj->{'stock'}[0]->{'price'}->{'amount'};
 	$shares = $sharesArr[$curIndex];
